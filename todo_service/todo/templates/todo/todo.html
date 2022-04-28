@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %} -->
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel = "stylesheet" type = "text/css" href = "css/styles.css"> -->
     <link type="text/css" href="{% static 'todo/css/styles.css' %}" rel="stylesheet" />
+    <!-- <link type="text/css" href='../../static/todo/css/styles.css' rel="stylesheet" /> -->
 
     <title>Document</title>
 </head>
@@ -17,10 +18,10 @@
             <h1 class="todo__title">TODO'шка</h1></div>
         <div class="new_task">
             <div  class="todo__newtask" >
-              <input  class="todo__textfield_newtask"  type="text">
+              <input  class="todo__textfield_newtask" id="#newtask_title" type="text">
             </div>
             <div class="todo__button_newtask" >
-                <button >ADD NEW TASK</button>
+                <button onclick="addTask()">ADD NEW TASK</button>
             </div>
         </div>
     </div>
@@ -41,28 +42,18 @@
                 <p class="filter.right selected">All</p> -->
             </div>
             <div class="todo__tasks_list">
-                <ul>
-                       <li>Task 1</li> 
-                       <li>Task 2</li> 
-                       <li>Task 3</li> 
-                       <li>Task 4</li> 
-                       <li>Task 5</li> 
-                       <li>Task 6</li> 
-                       <li>Task 4</li> 
-                       <li>Task 5</li> 
-                       <li>Task 6</li> 
-                       <li>Task 4</li> 
-                       <li>Task 5</li> 
-                       <li>Task 6</li> 
-                       <li>Task 4</li> 
-                       <li>Task 5</li> 
-                       <li>Task 6</li> 
+                <ul id="tasks_list">
+                    <!-- <div>
+                        <li>Task 1</li> 
+                    </div> -->
+        
                 </ul>
             </div>
         </div>
        
     </div>
 </div>
-<script src="js/base.js"></script>
+<script src="{% static 'todo/js/base.js' %}" asp-append-version="true"></script>
+<script type="text/javascript"> getGroups();</script>
 </body>
 </html>
