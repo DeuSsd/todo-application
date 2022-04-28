@@ -20,10 +20,11 @@ from django.urls import path, include
 # from todo.views import index
 
 
-
+from todo.views import TodoAPIView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/todolist', TodoAPIView.as_view()),
     path('',   include('todo.urls')),
 ]

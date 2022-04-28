@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel = "stylesheet" type = "text/css" href = "css/styles.css"> -->
+    <link type="text/css" href="{% static 'todo/css/styles.css' %}" rel="stylesheet" />
+
+    <title>Document</title>
+</head>
+<body>
+<div class="todo__background"> 
+    <div class="todo__header">
+        <div>
+            <h1 class="todo__title">TODO'шка</h1></div>
+        <div class="new_task">
+            <div  class="todo__newtask" >
+              <input  class="todo__textfield_newtask"  type="text">
+            </div>
+            <div class="todo__button_newtask" >
+                <button >ADD NEW TASK</button>
+            </div>
+        </div>
+    </div>
+    <div class="todo__body"> <!-- Table -->
+        <div class="todo__body__background">  <!--  table -->
+            <div class="todo__body__filter">  <!-- Table-row -->
+                <div class="">
+                    <button>Active</button>
+                </div>
+                <div class="">
+                    <button class="filter.center">Completed</button>
+                </div>
+                <div class="selected">
+                    <button>All</button>
+                </div>
+                <!-- <p class="filter.left">Active</p>
+                <p class="filter.center">Completed</p>
+                <p class="filter.right selected">All</p> -->
+            </div>
+            <div class="todo__tasks_list">
+                <ul>
+                       <li>Task 1</li> 
+                       <li>Task 2</li> 
+                       <li>Task 3</li> 
+                       <li>Task 4</li> 
+                       <li>Task 5</li> 
+                       <li>Task 6</li> 
+                       <li>Task 4</li> 
+                       <li>Task 5</li> 
+                       <li>Task 6</li> 
+                       <li>Task 4</li> 
+                       <li>Task 5</li> 
+                       <li>Task 6</li> 
+                       <li>Task 4</li> 
+                       <li>Task 5</li> 
+                       <li>Task 6</li> 
+                </ul>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<script src="js/base.js"></script>
+</body>
+</html>

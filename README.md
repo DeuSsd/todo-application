@@ -23,3 +23,20 @@
  
 
 Проект с изображениями для верстки: https://github.com/vladefr97/polytech-todo-task
+
+
+
+
+
+
+
+```shell
+python manage.py migrate
+
+python .\manage.py sqlmigrate todo 0001
+
+python .\manage.py makemigrations      
+
+python .\manage.py runserver
+
+```
