@@ -68,49 +68,50 @@
                 <p class="filter.center">Completed</p>
                 <p class="filter.right selected">All</p> -->
             </div>
-            <div class="todo__tasks_list" id="tasks_list">
-                <div class="advanced__mode">
-                    <div class="task_data"> 
-                        <span>Advanced_mode</span>
-                    </div>
-                    <div class="task_buttons">
-                        <div class="task__button__del" >
-                            <button >DEL</button>
-                        </div>
-                        <div class="task__button__edit">
-                            <button >EDIT</button>
-                        </div>
-                        <div class="task__button__done">
-                            <button >OK</button>
-                        </div>
-                    </div>
-                </div> 
+                <div class="todo__tasks_list" id="tasks_list">
+                    <div id="test_advanced">
+                        <div class="advanced__mode">
+                            <div class="task_data"> 
+                                <span>Advanced_mode</span>
+                            </div>
+                            <div class="task_buttons">
+                                <div class="task__button__del" >
+                                    <button >DEL</button>
+                                </div>
+                                <div class="task__button__edit">
+                                    <button >EDIT</button>
+                                </div>
+                                <div class="task__button__done">
+                                    <button onclick="button_ok_ADVANCEDMODE('test_advanced')">OK</button>
+                                </div>
+                            </div>
+                        </div> 
 
-                
-                <div class="preview_mode">
-                    <button>Prewiew_mode</button>
-                </div>
-                <div class="preview_mode">
-                    <button>Prewiew_mode</button>
-                </div>
-                <div class="edit__mode">
-                    <div class="task_data"> 
-                        <input type="text" value="Edit_mode">
                     </div>
-                    <div class="task_buttons">
-                        <div class="task__button__cancel" >
-                            <button >X</button>
-                        </div>
-                        <div class="task__button__agree">
-                            <button >OK</button>
+                    <div>
+                        <div class="preview_mode">
+                            <button>Prewiew_mode</button>
                         </div>
                     </div>
-                </div> 
+                    <div>
+                        <div class="edit__mode">
+                            <div class="task_data"> 
+                                <input type="text" value="Edit_mode">
+                            </div>
+                            <div class="task_buttons">
+                                <div class="task__button__cancel" >
+                                    <button >X</button>
+                                </div>
+                                <div class="task__button__agree">
+                                    <button >OK</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                 </div>
             </div>
         </div>
-       
     </div>
-</div>
 <script src="{% static 'todo/js/base.js' %}" asp-append-version="true"></script>
 <script type="text/javascript"> getGroups();</script>
 </body>

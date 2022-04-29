@@ -1,10 +1,16 @@
 'use strict';
 
+const PREVIEW_MODE = ".preview_mode"
+const ADVANCED_MODE = ".advanced__mode"
+const EDIT_MODE = ".edit__mode"
+
 const uri_api = 'api/v1/todo';
 let taskGroups = [];
 
 function addTaskInnerHTML(item,tag='#tasks_list') {
     document.querySelector(tag).innerHTML += buildTaskPreviewMode(item);
+    // document.querySelector(tag).innerHTML += buildTaskEditMode(item);
+    // document.querySelector(tag).innerHTML += buildTaskAdvancedMode(item);
 }
 
 function displayItems(data) {
@@ -27,21 +33,22 @@ function getGroups() {
 //     </div>
 //     `;
 // }
-
 function buildTaskEditMode(itemTask) {
     return `
-    <div id=${itemTask.id} class="edit__mode">
-        <div class="task_data"> 
-            <input type="text" value="${itemTask.title}">
-        </div>
-        <div class="task_buttons">
-            <div class="task__button__cancel" >
-                <button >X</button>
+    <div id=${itemTask.id}>
+        <div class="edit__mode">
+            <div class="task_data"> 
+                <input type="text" value="${itemTask.title}">
             </div>
-            <div class="task__button__agree">
-                <button >OK</button>
+            <div class="task_buttons">
+                <div class="task__button__cancel" >
+                    <button onclick="button_cancel_EDITMODE(${itemTask.id})">X</button>
+                </div>
+                <div class="task__button__agree">
+                    <button >OK</button>
+                </div>
             </div>
-        </div>
+        </div> 
     </div> 
     `;
 }
@@ -49,15 +56,19 @@ function buildTaskEditMode(itemTask) {
 
 function buildTaskPreviewMode(itemTask) {
     return `
-    <div id=${itemTask.id} class="preview_mode">
-        <button>${itemTask.title}</button>
+    
+    <div id=${itemTask.id}>
+        <div class="preview_mode">
+            <button onclick="button_PREVIEWMODE(${itemTask.id})">${itemTask.title}</button>
+        </div>
     </div>
     `;
 }
 
 function buildTaskAdvancedMode(itemTask) {
     return `
-    <div id=${itemTask.id} class="advanced__mode">
+    <div id=${itemTask.id}>
+    <div class="advanced__mode">
         <div class="task_data"> 
             <span>${itemTask.title}</span>
         </div>
@@ -66,22 +77,16 @@ function buildTaskAdvancedMode(itemTask) {
                 <button >DEL</button>
             </div>
             <div class="task__button__edit">
-                <button >EDIT</button>
+                <button onclick="button_edit_ADVANCEDMODE(${itemTask.id})">EDIT</button>
             </div>
             <div class="task__button__done">
-                <button >OK</button>
+                <button onclick="button_ok_ADVANCEDMODE(${itemTask.id})">OK</button>
             </div>
+        </div>
         </div>
     </div> 
     `;
 }
-
-
-
-
-
-
-
 
 function addTask() {
     const newTaskTitle = document.getElementById('#newtask_title');
@@ -91,6 +96,7 @@ function addTask() {
         id: 0,
         title: newTaskTitle.value.trim()
     };
+
     if (item.title){
         fetch(uri_api, {
             method: 'POST',
@@ -107,3 +113,112 @@ function addTask() {
     }
     newTaskTitle.value = "";
 }
+
+
+
+function toPreviewMode(id) {
+    id = id+''
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        if(Boolean(divTask.querySelector(EDIT_MODE)))
+            itemTask = getTaskAttributes_PREVIEW(id);
+        return itemTask;
+    } else {
+        return null;
+    }
+    // if(Boolean(divTask.querySelector(EDIT_MODE)){
+
+    // }    
+    
+    // newTaskTitle.outerHTML = buildTaskAdvancedMode()
+}
+
+
+function getTaskAttributes_PREVIEWMODE(id){
+    const divTask = document.getElementById(id);
+    if(Boolean(divTask.querySelector(PREVIEW_MODE))){
+        const itemTask = {
+            id: id,
+        }
+        itemTask['title'] = divTask.childNodes[1].textContent.trim();
+        return itemTask;
+    } else return null;  
+}
+
+
+function getTaskAttributes_EDITMODE(id){
+    const divTask = document.getElementById(id+'');
+    if(Boolean(divTask.querySelector(EDIT_MODE))){
+        const itemTask = {
+            id: id,
+        }
+        itemTask['title'] = divTask.childNodes[1].childNodes[1].childNodes[1].childNodes[1].value.trim();
+        return itemTask;
+    } else return null;  
+}
+
+
+function getTaskAttributes_ADVANCEDMODE(id){
+    const divTask = document.getElementById(id+'');
+    if(Boolean(divTask.querySelector(ADVANCED_MODE))){
+        const itemTask = {
+            id: id,
+        }
+        itemTask['title'] = divTask.childNodes[1].childNodes[1].childNodes[1].textContent.trim();
+        return itemTask;
+    } else return null;  
+}
+
+
+function button_ok_ADVANCEDMODE(id) {
+    id = id+''
+    let itemTask = {}
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        itemTask = getTaskAttributes_ADVANCEDMODE(id);
+    } 
+    divTask.innerHTML = buildTaskPreviewMode(itemTask)
+}
+
+function button_edit_ADVANCEDMODE(id) {
+    id = id+''
+    let itemTask = {}
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        itemTask = getTaskAttributes_ADVANCEDMODE(id);
+    } 
+    divTask.innerHTML = buildTaskEditMode(itemTask)
+}
+
+function button_cancel_EDITMODE(id) {
+    id = id+''
+    let itemTask = {}
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        itemTask = getTaskAttributes_EDITMODE(id);
+    } 
+    divTask.innerHTML = buildTaskPreviewMode(itemTask)
+}
+
+
+function button_PREVIEWMODE(id) {
+    id = id+''
+    let itemTask = {}
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        itemTask = getTaskAttributes_PREVIEWMODE(id);
+    } 
+    divTask.innerHTML = buildTaskAdvancedMode(itemTask)
+}
+
+// function defineTypeOfTaskViewMode(divTask) {
+//     TaskOuterHTML = divTask.outerHTML
+//     TaskOuterHTML.
+// }
+
+
