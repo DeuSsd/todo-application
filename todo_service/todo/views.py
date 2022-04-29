@@ -24,25 +24,59 @@ def about(request):
 
 
 class TodoAPIView(APIView):
-    
-    
     def get(self, request):
+        tasks = Task.objects.all()
+        return Response({
+            tasks.values()
+        })  
         
-        tasks_queryset = Task.objects.all()
-        return Response(tasks_queryset.values())
-    
-    
-    
+        
     def post(self, request):
-        task_new = Task.objects.create(
-            title=request.data['title']
-        )
+        serializer = TaskSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         
-        return Response({'post': model_to_dict(task_new)})
-    
-    ...
-# class TodoAPIView(generics.ListAPIView):
-#     queryset = Task.objects.all()
-    
-#     serializer_class = TaskSerializer
-#     ...
+        return Response({
+            'post': serializer.data,
+            })
+        
+        
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({
+                "error": "Method PUT not allowed"
+            })
+        try:
+            instance = Task.objects.get(pk = pk)
+        except:
+            return Response({
+                "error": "Object does not exists"
+            })
+
+        serializer = TaskSerializer(data=request.data,instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({
+            'post': serializer.data,
+            })
+        
+        
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({
+                "error": "Method DELETE not allowed"
+            })
+        
+        try:
+            instance = Task.objects.get(pk = pk)
+            instance.delete()
+        except:
+            return Response({
+                "error": "Object does not exists"
+            })
+            
+        return Response({
+            'post': f"delete task {pk}"
+        })

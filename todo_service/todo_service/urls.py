@@ -26,5 +26,6 @@ from todo.views import TodoAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/todo', TodoAPIView.as_view()),
+    path('api/v1/todo/<int:pk>', TodoAPIView.as_view()),
     path('',   include('todo.urls')),
 ]
