@@ -550,3 +550,8 @@ div {
     /* background-color: #54847B; */
     background-color: #444;
 }
+
+.completed_task{
+    text-decoration: solid line-through 2px ;
+	text-decoration-color: rgb(255, 255, 255);
+}
