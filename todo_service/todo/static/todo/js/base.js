@@ -16,28 +16,28 @@ const CSS_CLASS_COMPLETED_TASK = 'completed_task';
 
 const TAG_TASKS = '#tasks_list';
 
+let tasksList = [];
 
-
-
-
-let taskGroups = [];
-function addTaskInnerHTML(item,tag=TAG_TASKS) {
-    document.querySelector(tag).innerHTML += buildTaskPreviewMode(item);
-    // document.querySelector(tag).innerHTML += buildTaskEditMode(item);
-    // document.querySelector(tag).innerHTML += buildTaskAdvancedMode(item);
+function addTaskInnerHTML(itemTask,filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
+    if (filterIdSelected == ID_FILTER_BUTTON_ALL)
+        document.querySelector(TAG_TASKS).innerHTML += buildTaskPreviewMode(itemTask);
+    if (filterIdSelected == ID_FILTER_BUTTON_ACTIVE && !itemTask.is_completed)
+        document.querySelector(TAG_TASKS).innerHTML += buildTaskPreviewMode(itemTask);
+    if (filterIdSelected == ID_FILTER_BUTTON_COMPLITED && itemTask.is_completed)
+        document.querySelector(TAG_TASKS).innerHTML += buildTaskPreviewMode(itemTask);
 }
 
-function displayItems(data) {
-    data[0].forEach(item => addTaskInnerHTML(item));
-    taskGroups = data;
-}
-
-
-function getGroups() {
+function displayItems(data,filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
     document.querySelector(TAG_TASKS).innerHTML = "";
+    tasksList = data;
+    data[0].forEach(itemTask => addTaskInnerHTML(itemTask,filterIdSelected));
+}
+
+
+function getGroups(filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
     fetch(uri_api)
         .then(response => response.json())
-        .then(data => displayItems(data))
+        .then(data => displayItems(data,filterIdSelected))
         .catch(error => console.error('Unable to get items.', error));
 }
 
@@ -119,6 +119,8 @@ function buildButtonFilterCompleted(filterId) {
     </div>
     `;
 }
+
+
 // ID_FILTER_BUTTON_ALL
 // ID_FILTER_BUTTON_ACTIVE
 // ID_FILTER_BUTTON_COMPLITED
@@ -128,6 +130,7 @@ function buildButtonsFilters(filterIdSelected=ID_FILTER_BUTTON_ACTIVE){
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterActive(filterIdSelected);
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterCompleted(filterIdSelected);
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterAll(filterIdSelected);
+    displayItems(tasksList,filterIdSelected)
 }
 
 function addTask() {
