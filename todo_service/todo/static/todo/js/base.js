@@ -2,8 +2,8 @@
 
 const uri_api = 'api/v1/todo';
 
-const FILTER_DIV_GROUP = ".todo__body__filter"
-const FILTER_SELECTED = "filter__selected";
+const FILTER_DIV_GROUP = ".todo__body__filter";
+const CSS_CLASS_FILTER_SELECTED = "filter__selected";
 const ID_FILTER_BUTTON_ALL = "filter_button_all";
 const ID_FILTER_BUTTON_ACTIVE = "filter_button_active";
 const ID_FILTER_BUTTON_COMPLITED = "filter_button_complited";
@@ -17,6 +17,7 @@ const CSS_CLASS_COMPLETED_TASK = 'completed_task';
 const TAG_TASKS = '#tasks_list';
 
 let tasksList = [];
+let FILTER_SELECTED = ID_FILTER_BUTTON_ACTIVE ; // DEFAULT
 
 function addTaskInnerHTML(itemTask,filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
     if (filterIdSelected == ID_FILTER_BUTTON_ALL)
@@ -30,11 +31,14 @@ function addTaskInnerHTML(itemTask,filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
 function displayItems(data,filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
     document.querySelector(TAG_TASKS).innerHTML = "";
     tasksList = data;
-    data[0].forEach(itemTask => addTaskInnerHTML(itemTask,filterIdSelected));
+    // data[0].forEach((itemTask) => addTaskInnerHTML(itemTask,filterIdSelected));
+    if(data.length)
+        // data[0].map( (itemTask) => () => addTaskInnerHTML(itemTask,filterIdSelected));
+        data[0].forEach((itemTask) => addTaskInnerHTML(itemTask,filterIdSelected));
 }
 
 
-function getGroups(filterIdSelected=ID_FILTER_BUTTON_ACTIVE) {
+function getGroups(filterIdSelected=FILTER_SELECTED) {
     fetch(uri_api)
         .then(response => response.json())
         .then(data => displayItems(data,filterIdSelected))
@@ -72,25 +76,36 @@ function buildTaskPreviewMode(itemTask) {
     </div>
     `;
 }
-
+/* <button class="back_button__advanced__mode${itemTask.is_completed ? ' '+CSS_CLASS_COMPLETED_TASK : ''}" onclick="button_cancel_ADVANCEDMODE(${itemTask.id})">${itemTask.title}</button> */
+/* <span class="${itemTask.is_completed ? ' '+CSS_CLASS_COMPLETED_TASK : ''}" onclick="button_cancel_ADVANCEDMODE(${itemTask.id})">${itemTask.title}</span> */
+{/* <button class="back_button__advanced__mode${itemTask.is_completed ? ' '+CSS_CLASS_COMPLETED_TASK : ''}" 
+                    onclick="button_cancel_ADVANCEDMODE(${itemTask.id})">
+                    ${itemTask.title}
+                </button> */}
+// <span class="${itemTask.is_completed ? CSS_CLASS_COMPLETED_TASK : ''}">${itemTask.title}</span>
 function buildTaskAdvancedMode(itemTask) {
     return `
     <div id=${itemTask.id}>
-    <div class="advanced__mode">
-        <div class="task_data"> 
-            <span class="${itemTask.is_completed ? CSS_CLASS_COMPLETED_TASK : ''}">${itemTask.title}</span>
-        </div>
-        <div class="task_buttons">
-            <div class="task__button__del" >
-                <button onclick="button_delete_ADVANCEDMODE(${itemTask.id})">DEL</button>
+        <div class="advanced__mode">
+            <div class="task_data"> 
+                <span class="${itemTask.is_completed ? ' '+CSS_CLASS_COMPLETED_TASK : ''}" 
+                    onclick="button_cancel_ADVANCEDMODE(${itemTask.id})">
+                    ${itemTask.title}
+                </span> 
             </div>
-            <div class="task__button__edit">
-                <button onclick="button_edit_ADVANCEDMODE(${itemTask.id})">EDIT</button>
+            <div class="task_buttons">
+                <div class="task__button__del" >
+                    <button onclick="button_delete_ADVANCEDMODE(${itemTask.id})">DEL</button>
+                </div>
+                <div class="task__button__edit">
+                    <button onclick="button_edit_ADVANCEDMODE(${itemTask.id})">EDIT</button>
+                </div>
+                <div class="task__button__done">
+                    <button onclick="${itemTask.is_completed ? 'button_undone_ADVANCEDMODE' : 'button_done_ADVANCEDMODE'}(${itemTask.id})">
+                    ${itemTask.is_completed ? 'X' : 'DONE'}
+                    </button>
+                </div>
             </div>
-            <div class="task__button__done">
-                <button onclick="button_ok_ADVANCEDMODE(${itemTask.id})">OK</button>
-            </div>
-        </div>
         </div>
     </div> 
     `;
@@ -98,7 +113,7 @@ function buildTaskAdvancedMode(itemTask) {
 
 function buildButtonFilterAll(filterId) {
     return `
-    <div id="${ID_FILTER_BUTTON_ALL}" class="${filterId == ID_FILTER_BUTTON_ALL ? FILTER_SELECTED : ''}">
+    <div id="${ID_FILTER_BUTTON_ALL}" class="${filterId == ID_FILTER_BUTTON_ALL ? CSS_CLASS_FILTER_SELECTED : ''}">
         <button onclick="buildButtonsFilters(${ID_FILTER_BUTTON_ALL})">All</button>
     </div>
     `;
@@ -106,7 +121,7 @@ function buildButtonFilterAll(filterId) {
 
 function buildButtonFilterActive(filterId) {
     return `
-    <div id="${ID_FILTER_BUTTON_ACTIVE}" class="${filterId == ID_FILTER_BUTTON_ACTIVE ? FILTER_SELECTED : ''}">
+    <div id="${ID_FILTER_BUTTON_ACTIVE}" class="${filterId == ID_FILTER_BUTTON_ACTIVE ? CSS_CLASS_FILTER_SELECTED : ''}">
         <button onclick="buildButtonsFilters(${ID_FILTER_BUTTON_ACTIVE})" class="filter.center">Active</button>
     </div>
     `;
@@ -114,7 +129,7 @@ function buildButtonFilterActive(filterId) {
 
 function buildButtonFilterCompleted(filterId) {
     return `
-    <div id="${ID_FILTER_BUTTON_COMPLITED}" class="${filterId == ID_FILTER_BUTTON_COMPLITED ? FILTER_SELECTED : ''}">
+    <div id="${ID_FILTER_BUTTON_COMPLITED}" class="${filterId == ID_FILTER_BUTTON_COMPLITED ? CSS_CLASS_FILTER_SELECTED : ''}">
         <button onclick="buildButtonsFilters(${ID_FILTER_BUTTON_COMPLITED})">Completed</button>
     </div>
     `;
@@ -124,13 +139,14 @@ function buildButtonFilterCompleted(filterId) {
 // ID_FILTER_BUTTON_ALL
 // ID_FILTER_BUTTON_ACTIVE
 // ID_FILTER_BUTTON_COMPLITED
-function buildButtonsFilters(filterIdSelected=ID_FILTER_BUTTON_ACTIVE){
+function buildButtonsFilters(filterIdSelected=FILTER_SELECTED){
     if(filterIdSelected.id != undefined) filterIdSelected = filterIdSelected.id;
     document.querySelector(FILTER_DIV_GROUP).innerHTML = "";
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterActive(filterIdSelected);
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterCompleted(filterIdSelected);
     document.querySelector(FILTER_DIV_GROUP).innerHTML += buildButtonFilterAll(filterIdSelected);
-    displayItems(tasksList,filterIdSelected)
+    displayItems(tasksList,filterIdSelected);
+    FILTER_SELECTED=filterIdSelected;
 }
 
 function addTask() {
@@ -201,12 +217,21 @@ function getTaskAttributes_ADVANCEDMODE(id){
 }
 
 
-function button_ok_ADVANCEDMODE(id) {
+function button_done_ADVANCEDMODE(id) {
     id = id+''
     const divTask = document.getElementById(id);
     if(divTask)
     {
-        task_completed(id)
+        task_completed_changestatus(id)
+    } 
+}
+
+function button_undone_ADVANCEDMODE(id) {
+    id = id+''
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        task_completed_changestatus(id, false)
     } 
 }
 
@@ -218,6 +243,17 @@ function button_edit_ADVANCEDMODE(id) {
     {
         itemTask = getTaskAttributes_ADVANCEDMODE(id);
         divTask.innerHTML = buildTaskEditMode(itemTask)
+    } 
+}
+
+function button_cancel_ADVANCEDMODE(id) {
+    id = id+''
+    let itemTask = {}
+    const divTask = document.getElementById(id);
+    if(divTask)
+    {
+        itemTask = getTaskAttributes_ADVANCEDMODE(id);
+        divTask.innerHTML = buildTaskPreviewMode(itemTask)
     } 
 }
 
@@ -279,10 +315,10 @@ function button_accept_EDITMODE(id) {
 }
 
 
-function task_completed(id) {
+function task_completed_changestatus(id,taskStatus = true) {
     id=id+'';
     let itemTask = getTaskAttributes_ADVANCEDMODE(id);
-    itemTask["is_completed"] = true;
+    itemTask["is_completed"] = taskStatus;
 
     if (itemTask.title){
         fetch(uri_api+`/${id}`, {

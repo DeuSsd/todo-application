@@ -80,7 +80,16 @@ div {
     margin: 10px;
     background: #9BD8CD;
     border-radius: 10px;
+
+    padding-left: 30px;
+    padding-right: 10px;
+    font-size: 16px; 
+	color: #444;
+
 }
+
+
+
 
 .todo__textfield_newtask:focus {
     outline:none;
@@ -136,7 +145,6 @@ div {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 14px;
     color: #FFFFFF;
-    
     
 }
 
@@ -288,11 +296,11 @@ div {
     border-radius: 15px;
 } */
 
-.task_data {
+/* .task_data { */
         /* padding: 10px; /* Убираем поля  */
         /* margin-left: 0px;*/
         /* border-radius: 15px; */
-}
+/* } */
 /* 
 .task_data input{
     width: 100%;
@@ -346,11 +354,17 @@ div {
 .preview__mode button:hover{
     background: #cf7676;
     color: rgb(236, 236, 236);
+    
+	text-decoration-color: rgb(0, 0, 0);
+    
 }
 
 .preview__mode button:active{
     background: #444;
     color: rgb(236, 236, 236);
+    
+	text-decoration-color: #444;
+    
 }
 
 
@@ -369,9 +383,6 @@ div {
     justify-content: space-between;
 }
 
-.todo__textfield_newtask:focus {
-    outline:none;
-} 
 
 .edit__mode input{
     display: flex;
@@ -383,13 +394,17 @@ div {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     background: #F78C8C;
-    
+    outline:none;
     padding-left: 30px;
     padding-right: 10px;
     font-size: 16px; 
 	color: #444;
 }
 
+.edit__mode input:focus{
+    background: #9b3434;
+    color: rgb(236, 236, 236);
+}
 
 .edit__mode input:active{
     background: #9b3434;
@@ -403,8 +418,26 @@ div {
     margin-bottom: 10px;
 }
 
-.advanced__mode span {
+.advanced__mode span:hover{
+    background: #cf7676;
+    color: rgb(236, 236, 236);
     
+	text-decoration-color: rgb(0, 0, 0);
+    
+}
+
+.advanced__mode span:active{
+    background: #444;
+    color: rgb(236, 236, 236);
+    
+	text-decoration-color: #444;
+    
+}
+
+
+.advanced__mode span{
+    /* .back_button__advanced__mode{ */
+    cursor: default;
     flex-grow: 2;
     display: flex;
     align-items: center;
@@ -429,6 +462,7 @@ div {
 
 .task_data {
     flex-shrink: 0;
+    width: 300.55px;
     flex-grow: 5000000000000;
 }
 
