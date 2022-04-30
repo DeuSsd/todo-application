@@ -286,8 +286,9 @@ function button_delete_ADVANCEDMODE(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).catch(error => console.error(`Unable to delete file ${id}`, error));
-    divTask.outerHTML = ""
+    }).then(() => getGroups())
+    .then(() => divTask.outerHTML = "")
+    .catch(error => console.error(`Unable to delete file ${id}`, error))
 }
 
     
