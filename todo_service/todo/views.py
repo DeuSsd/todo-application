@@ -11,16 +11,9 @@ from .models import Task
 
 # Create your views here.
 
-menu = ["TODO","О сайте"]
-
-
 def index(request):
     tasks = Task.objects.all()
-    return render(request, 'todo/todo.html', {'tasks': tasks,'title': 'Главгая страница', 'menu': menu})
-
-
-def about(request):
-    return render(request, 'todo/about.html')
+    return render(request, 'todo/todo.html')
 
 
 class TodoAPIView(APIView):
