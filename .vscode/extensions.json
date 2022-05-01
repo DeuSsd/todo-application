@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ecmel.vscode-html-css",
+        "tht13.html-preview-vscode",
+        "zignd.html-css-class-completion",
+        "qwtel.sqlite-viewer",
+        "naumovs.color-highlight",
+        "formulahendry.auto-rename-tag"
+    ]
+}
