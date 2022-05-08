@@ -5,18 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel = "stylesheet" type = "text/css" href = "css/styles.css"> -->
     <link type="text/css" href="{% static 'todo/css/styles.css' %}" rel="stylesheet" />
-    <!-- <link type="text/css" href='../../static/todo/css/styles.css' rel="stylesheet" /> -->
     <link rel="shortcut icon" href="{% static 'todo/images/logo_site.ico' %}" type="image/x-icon"/>
-
     <title>Document</title>
 </head>
 <body>
 <div class="todo__background"> 
-    <div class="todo__header">
-        <div>
-            <h1 class="todo__title">TODO'шка</h1></div>
+    <div class="todo_header">
+        <div class="todo_header__title">
+            <h1 >TODO'шка</h1>
+        </div>
         <div class="new_task">
             <div  class="todo__newtask" >
               <input  placeholder="Need to do..." class="todo__textfield_newtask" id="#newtask_title" type="text">
@@ -26,12 +24,12 @@
             </div>
         </div>
     </div>
-    <div class="todo__body"> <!-- Table -->
-        <div class="todo__body__background">  <!--  table -->
-            <div class="todo__body__filter">  <!-- Table-row -->
+    <div class="todo_body"> <!-- Table -->
+        <div class="todo_body__background">  <!--  table -->
+            <div class="todo_body__filter">  <!-- Table-row -->
                 <!-- here was filters button dynamicaly load from js -->
             </div>
-                <div class="todo__tasks_list" id="tasks_list">
+                <div class="todo_body__tasks_list" id="tasks_list">
                    <!-- here was tasks dynamicaly load from js -->
                  </div>
             </div>

@@ -30,7 +30,7 @@ class TodoAPIView(APIView):
         serializer.save()
         
         return Response({
-            'post': serializer.data,
+            'post': 'ОК',
             })
         
         
