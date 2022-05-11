@@ -1,0 +1,40 @@
+.task__preview_mode {
+    display: flex; 
+    width: auto;
+    height: 58px;
+    
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.task__preview_mode button{
+    display: flex;
+    
+    padding-left: 30px;
+    align-items: center;
+    width: 100%;
+    height: 100%; 
+    border: none;
+    box-shadow: none;
+    background: #F78C8C;
+    border-radius: 15px;
+    font-size: 16px; 
+	color: #444;
+}
+
+.task__preview_mode button:hover{
+    background: #cf7676;
+    color: rgb(236, 236, 236);
+
+	text-decoration-color: rgb(0, 0, 0);
+    
+}
+
+.task__preview_mode button:active{
+    background: #444;
+    color: rgb(236, 236, 236);
+    
+	text-decoration-color: #444;
+    
+}

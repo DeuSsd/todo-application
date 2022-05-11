@@ -1,0 +1,41 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'todo/css/styles.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{% static 'todo/images/logo_site.ico' %}" type="image/x-icon"/>
+    <title>Document</title>
+</head>
+<body>
+<div class="todo__background"> 
+    <div class="todo_header">
+        <div class="todo_header__title">
+            <h1 >TODO'шка</h1>
+        </div>
+        <div class="new_task">
+            <div  class="todo__newtask" >
+              <input  placeholder="Need to do..." class="todo__textfield_newtask" id="#newtask_title" type="text">
+            </div>
+            <div class="todo__button_newtask" >
+                <button onclick="addTask()">ADD NEW TASK</button>
+            </div>
+        </div>
+    </div>
+    <div class="todo_body"> <!-- Table -->
+        <div class="todo_body__background">  <!--  table -->
+            <div class="todo_body__filter">  <!-- Table-row -->
+                <!-- here was filters button dynamicaly load from js -->
+            </div>
+                <div class="todo_body__tasks_list" id="tasks_list">
+                   <!-- here was tasks dynamicaly load from js -->
+                 </div>
+            </div>
+        </div>
+    </div>
+<script src="{% static 'todo/js/base.js' %}" asp-append-version="true"></script>
+<script type="text/javascript"> getGroups(); buildButtonsFilters();</script>
+</body>
+</html>

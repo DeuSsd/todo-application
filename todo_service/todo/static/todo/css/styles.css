@@ -1,0 +1,50 @@
+@import url("./header.css");
+@import url("./todo_body/todo_body.css");
+
+html, body {
+    font-family: 'Arial';
+	min-height: 300px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	color: #444;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.todo__background {
+    position: absolute;
+    width: 550px;
+    height: 90vh;
+    top: 52px; 
+    bottom: 52px; 
+    right: 0;
+    left: 0;
+    border-top: 52px;
+    border-bottom: 52px;
+    display: table;
+    margin: auto;
+    background: #C4C4C4;
+    border-radius: 15px;
+}
+
+
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+    width: 6px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #CD4F4F;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color:#E6C3C3;
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #444;
+}
+
